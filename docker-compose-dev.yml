@@ -4,7 +4,7 @@ services:
   db:
     container_name: postgres
     image: postgres:16
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_DB=TestDB
       - POSTGRES_USER=testacc
@@ -18,12 +18,12 @@ services:
     image: web-app:latest
     container_name: web-app
     build: 
-      context: ./Mysite
+      context: ./docker
       dockerfile: ./Dockerfile-dev
-    restart: always
+    restart: unless-stopped
     command: bash docker-entrypoint-dev.sh
 
-    # https://docs.djangoproject.com/en/3.0/ref/django-admin/#django-admin-createsuperuser
+    # https://docs.djangoproject.com/en/5.0/ref/django-admin/#django-admin-createsuperuser
     environment:
       - DJANGO_SUPERUSER_USERNAME=admin
       - DJANGO_SUPERUSER_PASSWORD=14m4dm1n!@#$
@@ -35,6 +35,6 @@ services:
     ports:
      - "8888:8000"
     volumes:
-      - ./Mysite:/app
+      - ./mysite:/app
     depends_on:
       - db
