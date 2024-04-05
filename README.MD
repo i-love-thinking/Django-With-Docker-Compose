@@ -24,7 +24,7 @@
     - Debug in settings.py is True.
 - Run project in dev mode:
     ```
-    docker compose -f docker-compose-dev.yml up
+    docker compose up
     ```
     - Then you will see the django rocket in localhost:8888
 
